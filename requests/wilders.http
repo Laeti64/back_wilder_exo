@@ -1,0 +1,40 @@
+POST /wilder/create HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Content-Length: 117
+
+    {
+        "firstName": "Pupuce-test bis",
+        "lastName": "test",
+        "email": "test@gmail.com"
+    }
+
+###
+
+//replace the id in url with the id of the wilder you want to delete
+DELETE /wilder/delete/c9c830ac-73e1-4677-b5a8-ed9e7f313df7 HTTP/1.1
+Host: localhost:4000
+
+###
+//GET ALL
+GET /wilder/ HTTP/1.1
+Host: localhost:4000
+
+###
+//GET ONE
+//replace id with the id of the user you want to get
+GET /wilder/1 HTTP/1.1
+Host: localhost:3000
+
+###
+
+PUT /wilder/update/1 HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Content-Length: 127
+
+    {
+        "firstName": "pupuce-tagada-pouet-pouet",
+        "lastName": "test",
+        "email": "test@gmail.com"
+    }

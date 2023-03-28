@@ -1,0 +1,33 @@
+POST /score/create HTTP/1.1
+Host: localhost:4000
+Content-Type: application/json
+Content-Length: 136
+
+{
+    "value": "15",
+    "wilder": "31a14b6b-d3f4-49b0-addd-71ca6fa8a026",
+    "skill": "174bb039-bdd7-42a3-82a6-67e006286afe"
+    }
+
+###
+//GET ALL
+GET /score/ HTTP/1.1
+Host: localhost:3000
+
+###
+//GET ONE
+GET /score/2 HTTP/1.1
+Host: localhost:3000
+
+###
+//UPDATE
+PATCH /score/update/2 HTTP/1.1
+Host: localhost:3000
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 7
+
+value=7
+
+###
+DELETE /score/delete/3 HTTP/1.1
+Host: localhost:3000
