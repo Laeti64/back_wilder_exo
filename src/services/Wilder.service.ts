@@ -25,13 +25,21 @@ export default class WilderService {
   }
 
   async getAllWilders(): Promise<Wilder[]> {
-    const wilders: Wilder[] = await this.db.find();
-    console.log("wilders", wilders);
-    return wilders;
+    return await this.db
+      .createQueryBuilder("wilder")
+      .leftJoinAndSelect("wilder.scores", "scores")
+      .leftJoinAndSelect("scores.skill", "skill")
+      .getMany();
   }
 
   async getWilderById(id: string) {
-    let wilder: Wilder | null = await this.db.findOneBy({ id });
+    const wilder = await this.db
+      .createQueryBuilder("wilder")
+      .leftJoinAndSelect("wilder.scores", "scores")
+      .leftJoinAndSelect("scores.skill", "skill")
+      .where("wilder.id = :id", { id })
+      .getOne();
+
     if (!wilder) throw new Error(`Wilder with id ${id} not found`);
     return wilder;
   }
@@ -48,7 +56,6 @@ export default class WilderService {
     id: string,
     { firstName, lastName, email }: IWilderCreate
   ) {
-    // console.log("patch", id, firstName, lastName, email);
     await this.db.update(id, {
       firstName,
       lastName,
@@ -58,7 +65,6 @@ export default class WilderService {
   }
 
   async partialUpdateWilder({ id, ...other }: IWilderUpdateKey) {
-    console.log(other);
     let wilder: Wilder = await this.getWilderById(id);
     // Object.keys(other).forEach((key) => {
     //   if (other[key]) {
@@ -69,8 +75,10 @@ export default class WilderService {
   }
 
   async assignScoreToWilder({ wilderId, skillId, value }: IWilderAssignSkill) {
+    console.log("je suis la");
     const skill: Skill = await new SkillService().getOneSkill(skillId);
     const wilder: Wilder = await this.getWilderById(wilderId);
+    console.log;
     let previousScore: Score | null = await new ScoreService().findByRelation({
       skill,
       wilder,

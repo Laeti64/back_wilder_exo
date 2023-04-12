@@ -45,7 +45,6 @@ router.post("/create", async (req: Request, res: Response) => {
 });
 
 router.delete("/delete/:id", async (req: Request, res: Response) => {
-  console.log("je suis la");
   try {
     const { id }: IFind = req.params;
     await new WilderService().deleteWilder(id);

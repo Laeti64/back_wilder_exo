@@ -24,7 +24,6 @@ export default class SkillService {
   async getOneSkill(id: string): Promise<ISkillUpdateKey> {
     const skill: Skill | null = await this.db.findOneBy({ id });
     if (!skill) throw new Error(`Skill with id ${id} not found`);
-    console.log(skill);
     return skill as ISkillUpdateKey;
   }
 

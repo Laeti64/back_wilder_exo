@@ -17,7 +17,7 @@ export default class Score {
   value: number;
 
   @ManyToOne(() => Wilder, { eager: true, onDelete: "CASCADE" })
-  @JoinColumn()
+  // @JoinColumn()
   wilder: Wilder;
 
   @ManyToOne(() => Skill, { eager: true, onDelete: "CASCADE" })
