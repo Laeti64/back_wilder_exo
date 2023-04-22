@@ -1,57 +1,54 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
-import Skill from "./Skill.entity";
-import Wilder from "./Wilder.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import Skill, { SkillInput } from "./Skill.entity";
 
+import { Field, InputType, ObjectType } from "type-graphql";
+import Wilder, { WilderInput } from "./Wilder.entity";
+
+@ObjectType()
 @Entity("scores")
 export default class Score {
+  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Field()
   @Column()
   value: number;
 
+  @Field(() => Wilder)
   @ManyToOne(() => Wilder, { eager: true, onDelete: "CASCADE" })
   // @JoinColumn()
   wilder: Wilder;
 
+  @Field(() => Skill)
   @ManyToOne(() => Skill, { eager: true, onDelete: "CASCADE" })
   skill: Skill;
 }
 
-// import { EntitySchema } from "typeorm";
+@InputType()
+export class ScoreInput {
+  @Field()
+  value: number;
+  @Field(() => SkillInput)
+  skill: Skill;
+  @Field()
+  wilderId: string;
+}
 
-// export default new EntitySchema({
-//   name: "Score",
-//   columns: {
-//     id: {
-//       primary: true,
-//       type: "int",
-//       generated: true,
-//     },
-//     value: {
-//       type: "int",
-//       unique: true,
-//     },
-//   },
-//   relations: {
-//     wilder: {
-//       target: "Wilder",
-//       type: "many-to-one",
-//       eager: true,
-//       onDelete: "CASCADE",
-//     },
-//     skill: {
-//       target: "Skill",
-//       type: "many-to-one",
-//       eager: true,
-//       onDelete: "CASCADE",
-//       joinColumn: true,
-//     },
-//   },
-// });
+@InputType()
+export class ScoreCreateInput {
+  @Field()
+  value: number;
+  @Field(() => SkillInput)
+  skill: Skill;
+  @Field(() => WilderInput)
+  wilder: Wilder;
+}
+
+@InputType()
+export class ScoreByWilderInput {
+  @Field(() => Wilder)
+  wilder: Wilder;
+  @Field(() => Skill)
+  skill: Skill;
+}

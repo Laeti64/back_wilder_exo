@@ -88,22 +88,22 @@ router.patch("/update/partial/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/assign/score", async (req: Request, res: Response) => {
-  const { wilderId, skillId, value }: IWilderAssignSkill = req.body;
-  try {
-    const result: Score = await new WilderService().assignScoreToWilder({
-      wilderId,
-      skillId,
-      value,
-    });
-    if (!result) throw new Error("Wilder or Skill not found");
-    res.status(200).json(result);
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
+// router.post("/assign/score", async (req: Request, res: Response) => {
+//   const { wilderId, skillId, value }: IWilderAssignSkill = req.body;
+//   try {
+//     const result: Score = await new WilderService().assignScoreToWilder({
+//       wilderId,
+//       skillId,
+//       value,
+//     });
+//     if (!result) throw new Error("Wilder or Skill not found");
+//     res.status(200).json(result);
+//   } catch (error: any) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// });
 
 export default router;

@@ -11,8 +11,8 @@ export default class SkillService {
     this.db = datasource.getRepository("Skill");
   }
 
-  async createSkill({ name }: ISkillCreate): Promise<Skill> {
-    let skill: Skill = this.db.create({ name });
+  async createSkill(name: { name: string }): Promise<Skill> {
+    let skill: Skill = this.db.create(name);
     return await this.db.save(skill);
   }
 

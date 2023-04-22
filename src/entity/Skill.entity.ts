@@ -1,36 +1,32 @@
+import { Field, InputType, ObjectType } from "type-graphql";
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm";
 
+@ObjectType()
 @Unique("contrainte_unique", ["name"])
 @Entity("skills")
 export default class Skill {
+  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   //@Column({unique: true}}) pour une contrainte unique - autre methode
+  @Field()
   @Column()
   name: string;
 }
 
-// import { EntitySchema } from "typeorm";
+@InputType()
+export class SkillInput {
+  @Field({ nullable: true })
+  id: string;
+  @Field()
+  name: string;
+}
 
-// export default new EntitySchema({
-//   name: "Skill",
-//   columns: {
-//     id: {
-//       primary: true,
-//       type: "int",
-//       generated: true,
-//     },
-//     name: {
-//       type: "text",
-//       unique: true,
-//     },
-//   },
-//   relations: {
-//     scores: {
-//       target: "Score",
-//       type: "one-to-many",
-//       inverseSide: "skill",
-//     },
-//   },
-// });
+@InputType()
+export class SkillUpdateInput {
+  @Field()
+  id: string;
+  @Field({ nullable: true })
+  name: string;
+}

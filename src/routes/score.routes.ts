@@ -5,15 +5,15 @@ import { IFind, IScoreBody } from "./routes";
 
 const router = Router();
 
-router.post("/create", async (req: Request, res: Response) => {
-  const { value, wilder, skill }: IScoreBody = req.body;
-  let score: Score = await new ScoreService().createScore({
-    value,
-    wilder,
-    skill,
-  });
-  return res.status(200).json(score);
-});
+// router.post("/create", async (req: Request, res: Response) => {
+//   const { value, wilder, skill }: IScoreBody = req.body;
+//   let score: Score = await new ScoreService().createScore({
+//     value,
+//     wilder,
+//     skill,
+//   });
+//   return res.status(200).json(score);
+// });
 
 router.get("/", async (req: Request, res: Response) => {
   let scores: Score[] = await new ScoreService().getAllScores();

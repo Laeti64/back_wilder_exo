@@ -49,7 +49,7 @@ export default class WilderService {
     if (result.affected === 0) {
       throw new Error(`Wilder with id ${id} not found`);
     }
-    return `Wilder with id ${id} has been deleted`;
+    return { success: true, message: `Wilder with id ${id} has been deleted` };
   }
 
   async updateWilder(
@@ -61,16 +61,16 @@ export default class WilderService {
       lastName,
       email,
     });
-    return `Wilder with id ${id} has been updated`;
+    return { success: true, message: `Wilder with id ${id} has been updated` };
   }
 
   async partialUpdateWilder({ id, ...other }: IWilderUpdateKey) {
     let wilder: Wilder = await this.getWilderById(id);
-    // Object.keys(other).forEach((key) => {
-    //   if (other[key]) {
-    //     wilder[key] = other[key];
-    //   }
-    // });
+    //   // Object.keys(other).forEach((key) => {
+    //   //   if (other[key]) {
+    //   //     wilder[key] = other[key];
+    //   //   }
+    //   // });
     return await this.db.update(wilder.id, other as IWilderUpdateKey);
   }
 
@@ -78,7 +78,7 @@ export default class WilderService {
     console.log("je suis la");
     const skill: Skill = await new SkillService().getOneSkill(skillId);
     const wilder: Wilder = await this.getWilderById(wilderId);
-    console.log;
+
     let previousScore: Score | null = await new ScoreService().findByRelation({
       skill,
       wilder,

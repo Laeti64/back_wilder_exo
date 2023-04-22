@@ -34,7 +34,7 @@ export default class ScoreService {
     if (result.affected === 0) {
       throw new Error(`Score with id ${id} not found`);
     }
-    return `Score with id ${id} has been deleted`;
+    return { success: true, message: `Score with id ${id} has been deleted` };
   }
 
   async findByRelation({ skill, wilder }: IScoreFind) {
